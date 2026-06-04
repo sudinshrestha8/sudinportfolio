@@ -9,5 +9,6 @@
     @include('sections.experience')
     @include('sections.education')
     @include('sections.testimonials')
+    @include('sections.blog')
     @include('sections.contact')
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\BlogPost;
 use App\Models\Contact;
 use App\Models\Education;
 use App\Models\Experience;
@@ -27,6 +28,7 @@ class PortfolioController extends Controller
         $services = Service::orderBy('sort_order')->get();
         $testimonials = Testimonial::where('visible', true)->get();
         $contact = Contact::first();
+        $blogPosts = BlogPost::published()->orderBy('published_at', 'desc')->take(7)->get();
 
         return view('portfolio', compact(
             'settings',
@@ -39,6 +41,17 @@ class PortfolioController extends Controller
             'services',
             'testimonials',
             'contact',
+            'blogPosts',
         ));
+    }
+
+    public function blogShow(string $slug)
+    {
+        $post = BlogPost::published()->where('slug', $slug)->firstOrFail();
+        $settings = SiteSetting::first();
+        $hero = Hero::first();
+        $contact = Contact::first();
+
+        return view('blog.show', compact('post', 'settings', 'hero', 'contact'));
     }
 }

@@ -39,7 +39,7 @@
 
                 {{-- Desktop Nav --}}
                 <div class="hidden md:flex items-center gap-1">
-                    @foreach(['about' => 'About', 'skills' => 'Skills', 'projects' => 'Projects', 'experience' => 'Experience', 'services' => 'Services', 'testimonials' => 'Testimonials', 'contact' => 'Contact'] as $id => $label)
+                    @foreach(['about' => 'About', 'skills' => 'Skills', 'projects' => 'Projects', 'experience' => 'Experience', 'services' => 'Services', 'testimonials' => 'Testimonials', 'blog' => 'Blog', 'contact' => 'Contact'] as $id => $label)
                         <a href="#{{ $id }}"
                            class="px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200"
                            :class="activeSection === '{{ $id }}'
@@ -80,7 +80,7 @@
                  x-transition:leave-end="opacity-0 -translate-y-2"
                  class="md:hidden pb-4 border-t border-gray-200 dark:border-gray-800 mt-2 pt-4">
                 <div class="flex flex-col gap-1">
-                    @foreach(['about' => 'About', 'skills' => 'Skills', 'projects' => 'Projects', 'experience' => 'Experience', 'services' => 'Services', 'testimonials' => 'Testimonials', 'contact' => 'Contact'] as $id => $label)
+                    @foreach(['about' => 'About', 'skills' => 'Skills', 'projects' => 'Projects', 'experience' => 'Experience', 'services' => 'Services', 'testimonials' => 'Testimonials', 'blog' => 'Blog', 'contact' => 'Contact'] as $id => $label)
                         <a href="#{{ $id }}"
                            class="px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200"
                            :class="activeSection === '{{ $id }}'
