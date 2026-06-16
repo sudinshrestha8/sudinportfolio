@@ -16,7 +16,7 @@
         {{-- Cover Image --}}
         @if($post->cover_image)
             <div class="aspect-video rounded-2xl overflow-hidden mb-10 shadow-lg">
-                <img src="{{ asset('storage/' . $post->cover_image) }}"
+                <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($post->cover_image) }}"
                      alt="{{ $post->title }}"
                      class="w-full h-full object-cover">
             </div>

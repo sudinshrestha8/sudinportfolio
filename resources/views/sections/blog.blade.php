@@ -21,7 +21,7 @@
            class="group mb-8 flex flex-col lg:flex-row gap-0 rounded-2xl overflow-hidden bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 hover:border-[var(--color-accent)]/40 shadow-sm hover:shadow-xl transition-all duration-300 block">
             <div class="lg:w-1/2 aspect-video lg:aspect-auto bg-gradient-to-br from-[var(--color-accent)]/10 to-[var(--color-accent)]/5 overflow-hidden">
                 @if($featured->cover_image)
-                    <img src="{{ asset('storage/' . $featured->cover_image) }}"
+                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($featured->cover_image) }}"
                          alt="{{ $featured->title }}"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 @else
@@ -69,7 +69,7 @@
                        class="group rounded-2xl overflow-hidden bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 hover:border-[var(--color-accent)]/40 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col">
                         <div class="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 overflow-hidden">
                             @if($post->cover_image)
-                                <img src="{{ asset('storage/' . $post->cover_image) }}"
+                                <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($post->cover_image) }}"
                                      alt="{{ $post->title }}"
                                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             @else

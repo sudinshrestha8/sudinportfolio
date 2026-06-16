@@ -13,12 +13,28 @@ class About extends Model
         'location',
         'availability_status',
         'resume_pdf',
+        'active',
     ];
 
-    protected function casts(): array
+    protected $casts = [
+        'years_of_experience' => 'integer',
+        'active' => 'boolean',
+    ];
+
+    protected static function booted(): void
     {
-        return [
-            'years_of_experience' => 'integer',
-        ];
+        static::saving(function (About $about) {
+            if (! $about->active) {
+                return;
+            }
+
+            $query = static::where('active', true);
+
+            if ($about->exists) {
+                $query->where('id', '!=', $about->id);
+            }
+
+            $query->update(['active' => false]);
+        });
     }
 }

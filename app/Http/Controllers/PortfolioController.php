@@ -19,8 +19,8 @@ class PortfolioController extends Controller
     public function index()
     {
         $settings = SiteSetting::first();
-        $hero = Hero::first();
-        $about = About::first();
+        $hero = Hero::where('active', true)->first() ?? Hero::first();
+        $about = About::where('active', true)->first() ?? About::first();
         $skills = Skill::orderBy('sort_order')->get();
         $projects = Project::orderBy('sort_order')->get();
         $experiences = Experience::orderBy('sort_order')->get();
@@ -49,7 +49,7 @@ class PortfolioController extends Controller
     {
         $post = BlogPost::published()->where('slug', $slug)->firstOrFail();
         $settings = SiteSetting::first();
-        $hero = Hero::first();
+        $hero = Hero::where('active', true)->first() ?? Hero::first();
         $contact = Contact::first();
 
         return view('blog.show', compact('post', 'settings', 'hero', 'contact'));

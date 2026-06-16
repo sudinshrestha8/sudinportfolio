@@ -46,7 +46,7 @@
             <div class="flex-shrink-0 animate-fade-in-up animation-delay-300">
                 <div class="relative">
                     <div class="absolute inset-0 bg-[var(--color-accent)]/20 rounded-3xl rotate-6 scale-105"></div>
-                    <img src="{{ asset('storage/' . $hero->profile_photo) }}"
+                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($hero->profile_photo) }}"
                          alt="{{ $hero->name }}"
                          class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-3xl object-cover shadow-2xl">
                 </div>

@@ -5,7 +5,7 @@
              activeFilter: 'all',
              showAll: false,
              limit: 6,
-             projects: {{ Js::from($projects->map(fn($p) => ['id' => $p->id, 'title' => $p->title, 'short_description' => $p->short_description, 'tech_stack' => $p->tech_stack ?? [], 'live_url' => $p->live_url, 'github_url' => $p->github_url, 'thumbnail' => $p->thumbnail ? asset('storage/' . $p->thumbnail) : null, 'featured' => $p->featured])) }},
+             projects: {{ Js::from($projects->map(fn($p) => ['id' => $p->id, 'title' => $p->title, 'short_description' => $p->short_description, 'tech_stack' => $p->tech_stack ?? [], 'live_url' => $p->live_url, 'github_url' => $p->github_url, 'thumbnail' => $p->thumbnail ? \Illuminate\Support\Facades\Storage::disk('public')->url($p->thumbnail) : null, 'featured' => $p->featured])) }},
              get allTags() {
                  return [...new Set(this.projects.flatMap(p => p.tech_stack))].sort();
              },
