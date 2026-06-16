@@ -8,12 +8,14 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class AboutResource extends Resource
@@ -51,6 +53,10 @@ class AboutResource extends Resource
                     ])
                     ->default('available')
                     ->required(),
+                Toggle::make('active')
+                    ->label('Active')
+                    ->default(false)
+                    ->helperText('Only the active about section is shown on the frontend.'),
                 FileUpload::make('resume_pdf')
                     ->label('Resume PDF')
                     ->acceptedFileTypes(['application/pdf'])
@@ -71,7 +77,9 @@ class AboutResource extends Resource
                         'busy' => 'warning',
                         'unavailable' => 'danger',
                     }),
+                ToggleColumn::make('active')->label('Active'),
             ])
+            ->defaultSort('active', 'desc')
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),

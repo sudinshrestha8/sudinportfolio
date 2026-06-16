@@ -54,6 +54,8 @@ class ProjectResource extends Resource
                     ->maxLength(255),
                 FileUpload::make('thumbnail')
                     ->image()
+                    ->disk('public')
+                    ->visibility('public')
                     ->directory('projects'),
                 Toggle::make('featured')
                     ->default(false),

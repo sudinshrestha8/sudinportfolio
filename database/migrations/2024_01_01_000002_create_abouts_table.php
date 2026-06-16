@@ -15,6 +15,7 @@ return new class extends Migration
             $table->unsignedInteger('years_of_experience')->default(0);
             $table->string('location')->nullable();
             $table->string('availability_status')->default('available');
+            $table->boolean('active')->default(false);
             $table->string('resume_pdf')->nullable();
             $table->timestamps();
         });

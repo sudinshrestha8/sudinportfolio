@@ -7,12 +7,14 @@ use App\Models\Hero;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class HeroResource extends Resource
@@ -52,8 +54,14 @@ class HeroResource extends Resource
                     ])
                     ->default('gradient')
                     ->required(),
+                Toggle::make('active')
+                    ->label('Active')
+                    ->default(false)
+                    ->helperText('Only the active hero is shown on the frontend.'),
                 FileUpload::make('profile_photo')
                     ->image()
+                    ->disk('public')
+                    ->visibility('public')
                     ->directory('heroes')
                     ->imageResizeMode('cover')
                     ->imageCropAspectRatio('1:1')
@@ -70,7 +78,9 @@ class HeroResource extends Resource
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('tagline')->limit(50),
                 TextColumn::make('background_style')->badge(),
+                ToggleColumn::make('active')->label('Active'),
             ])
+            ->defaultSort('active', 'desc')
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),

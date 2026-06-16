@@ -58,6 +58,8 @@ class BlogPostResource extends Resource
                     ->image()
                     ->disk('public')
                     ->directory('blog')
+                    ->visibility('public')
+                    ->preserveFilenames()
                     ->columnSpanFull(),
                 TagsInput::make('tags')
                     ->placeholder('Add a tag'),
@@ -72,7 +74,9 @@ class BlogPostResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('cover_image')->square(),
+                ImageColumn::make('cover_image')
+                    ->disk('public')
+                    ->square(),
                 TextColumn::make('title')->searchable()->sortable()->limit(50),
                 TextColumn::make('published_at')->dateTime()->sortable()->placeholder('Draft'),
                 IconColumn::make('published')->boolean(),
