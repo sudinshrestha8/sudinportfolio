@@ -16,7 +16,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.store');
 
-// Protected blog routes (require login)
-Route::middleware('auth')->group(function () {
+// Protected blog routes — only 'user' role may access; admins are redirected to /admin
+Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/blog/{slug}', [PortfolioController::class, 'blogShow'])->name('blog.show');
 });

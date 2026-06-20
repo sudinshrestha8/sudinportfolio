@@ -13,7 +13,9 @@ class AuthController extends Controller
     public function showLogin()
     {
         if (Auth::check()) {
-            return redirect()->route('portfolio');
+            return Auth::user()->isAdmin()
+                ? redirect('/admin')
+                : redirect()->route('portfolio');
         }
         return view('auth.login');
     }
@@ -28,7 +30,9 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('portfolio') . '#blog');
+            return Auth::user()->isAdmin()
+                ? redirect('/admin')
+                : redirect()->intended(route('portfolio') . '#blog');
         }
 
         return back()
@@ -39,7 +43,9 @@ class AuthController extends Controller
     public function showRegister()
     {
         if (Auth::check()) {
-            return redirect()->route('portfolio');
+            return Auth::user()->isAdmin()
+                ? redirect('/admin')
+                : redirect()->route('portfolio');
         }
         return view('auth.register');
     }
@@ -56,6 +62,7 @@ class AuthController extends Controller
             'name'     => $validated['name'],
             'email'    => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'role'     => 'user',
         ]);
 
         Auth::login($user);
